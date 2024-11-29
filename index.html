@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Estudos de Programação</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fce4ec; /* Rosa bebê */
+            color: #333;
+        }
+
+        header {
+            background-color: #ff80b3; /* Rosa forte */
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #ff4081; /* Rosa escuro */
+            margin-bottom: 10px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            background-color: #ffe6f0; /* Rosa claro */
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .checklist input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .reset-btn {
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .reset-btn:hover {
+            background-color: #ff80b3;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #212121; /* Preto */
+            color: white;
+        }
+
+        footer a {
+            color: #ff80b3;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Plataforma de Estudos de Programação</h1>
+        <p>Organize seus estudos com estilo!</p>
+    </header>
+
+    <div class="container">
+        <h2>HTML</h2>
+        <div class="section">
+            <ul class="checklist" id="htmlChecklist">
+                <li><label><input type="checkbox"> Estrutura básica do HTML (doctype, head, body)</label></li>
+                <li><label><input type="checkbox"> Tags semânticas (header, footer, section, article)</label></li>
+                <li><label><input type="checkbox"> Atributos globais (id, class, style, data-*)</label></li>
+                <li><label><input type="checkbox"> Formulários e validação (input, textarea, select, validation)</label></li>
+                <li><label><input type="checkbox"> Links e imagens (anchor tags, img srcset)</label></li>
+                <li><label><input type="checkbox"> Tabelas e estruturação (table, thead, tbody, colspan, rowspan)</label></li>
+                <li><label><input type="checkbox"> Mídia embutida (video, audio, iframe)</label></li>
+            </ul>
+        </div>
+
+        <h2>CSS</h2>
+        <div class="section">
+            <ul class="checklist" id="cssChecklist">
+                <li><label><input type="checkbox"> Seletores (básicos, combinadores, pseudo-classes, pseudo-elementos)</label></li>
+                <li><label><input type="checkbox"> Propriedades de texto (font-family, font-size, line-height, text-align)</label></li>
+                <li><label><input type="checkbox"> Box Model (margins, borders, padding, width/height)</label></li>
+                <li><label><input type="checkbox"> Flexbox (justify-content, align-items, flex-wrap)</label></li>
+                <li><label><input type="checkbox"> Grid Layout (grid-template-rows, columns, areas)</label></li>
+                <li><label><input type="checkbox"> Animações (keyframes, transition, animation-duration)</label></li>
+                <li><label><input type="checkbox"> Responsividade (media queries, unidades relativas como %, rem)</label></li>
+            </ul>
+        </div>
+
+        <h2>Banco de Dados</h2>
+        <div class="section">
+            <ul class="checklist" id="dbChecklist">
+                <li><label><input type="checkbox"> Introdução ao SQL (SELECT, INSERT, UPDATE, DELETE)</label></li>
+                <li><label><input type="checkbox"> Criação de tabelas (CREATE TABLE, tipos de dados)</label></li>
+                <li><label><input type="checkbox"> Consultas avançadas (WHERE, GROUP BY, HAVING, ORDER BY)</label></li>
+                <li><label><input type="checkbox"> Relacionamentos (chaves primárias e estrangeiras)</label></li>
+                <li><label><input type="checkbox"> Normalização (1ª, 2ª e 3ª formas normais)</label></li>
+                <li><label><input type="checkbox"> JOINs (INNER, OUTER, LEFT, RIGHT)</label></li>
+                <li><label><input type="checkbox"> Índices e desempenho (CREATE INDEX, análise de desempenho)</label></li>
+            </ul>
+        </div>
+
+        <button class="reset-btn" onclick="resetProgress()">Resetar Progresso</button>
+    </div>
+
+    <footer>
+        <p>Desenvolvido com 💖 por você | <a href="#">Contato</a></p>
+    </footer>
+
+    <script>
+        // Salvar progresso no LocalStorage
+        function saveProgress() {
+            const htmlProgress = Array.from(document.querySelectorAll('#htmlChecklist input')).map(checkbox => checkbox.checked);
+            const cssProgress = Array.from(document.querySelectorAll('#cssChecklist input')).map(checkbox => checkbox.checked);
+            const dbProgress = Array.from(document.querySelectorAll('#dbChecklist input')).map(checkbox => checkbox.checked);
+
+            localStorage.setItem('htmlProgress', JSON.stringify(htmlProgress));
+            localStorage.setItem('cssProgress', JSON.stringify(cssProgress));
+            localStorage.setItem('dbProgress', JSON.stringify(dbProgress));
+        }
+
+        // Carregar progresso do LocalStorage
+        function loadProgress() {
+            const htmlProgress = JSON.parse(localStorage.getItem('htmlProgress')) || [];
+            const cssProgress = JSON.parse(localStorage.getItem('cssProgress')) || [];
+            const dbProgress = JSON.parse(localStorage.getItem('dbProgress')) || [];
+
+            document.querySelectorAll('#htmlChecklist input').forEach((checkbox, index) => {
+                checkbox.checked = htmlProgress[index] || false;
+            });
+
+            document.querySelectorAll('#cssChecklist input').forEach((checkbox, index) => {
+                checkbox.checked = cssProgress[index] || false;
+            });
+
+            document.querySelectorAll('#dbChecklist input').forEach((checkbox, index) => {
+                checkbox.checked = dbProgress[index] || false;
+            });
+        }
+
+        // Resetar progresso
+        function resetProgress() {
+            if (confirm('Tem certeza de que deseja resetar o progresso?')) {
+                localStorage.clear();
+                document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => checkbox.checked = false);
+            }
+        }
+
+        // Salvar progresso ao marcar/desmarcar
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', saveProgress);
+        });
+
+        // Carregar progresso ao abrir a página
+        loadProgress();
+    </script>
+</body>
+</html>
